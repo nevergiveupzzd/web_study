@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    .countdown {
+      width: 240px;
+      height: 305px;
+      text-align: center;
+      line-height: 1;
+      color: #fff;
+      background-color: brown;
+      /* background-size: 240px; */
+      /* float: left; */
+      overflow: hidden;
+    }
+
+    .countdown .next {
+      font-size: 16px;
+      margin: 25px 0 14px;
+    }
+
+    .countdown .title {
+      font-size: 33px;
+    }
+
+    .countdown .tips {
+      margin-top: 80px;
+      font-size: 23px;
+    }
+
+    .countdown small {
+      font-size: 17px;
+    }
+
+    .countdown .clock {
+      width: 142px;
+      margin: 18px auto 0;
+      overflow: hidden;
+    }
+
+    .countdown .clock span,
+    .countdown .clock i {
+      display: block;
+      text-align: center;
+      line-height: 34px;
+      font-size: 23px;
+      float: left;
+    }
+
+    .countdown .day span {
+      display: inline-block;
+      text-align: center;
+      line-height: 34px;
+      font-size: 23px;
+    }
+
+    .countdown .day i {
+      display: inline-block;
+    }
+
+    .countdown .clock span,
+    .countdown .day span {
+      width: 34px;
+      height: 34px;
+      border-radius: 2px;
+      background-color: #303430;
+    }
+
+    .countdown .clock i {
+      width: 20px;
+      font-style: normal;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="countdown">
+    <p class="next">今天是2222年2月22日</p>
+    <p class="title">倒计时</p>
+    <p class="day">
+      <span id="day"></span>
+      <i>天</i>
+    </p>
+    <p class="clock">
+      <span id="hour"></span>
+      <i>:</i>
+      <span id="minutes"></span>
+      <i>:</i>
+      <span id="scond"></span>
+    </p>
+    <p class="tips"></p>
+  </div>
+  <script>
+    // d = parseInt(总秒数 / 60 / 60 / 24)  //计算天数
+    // h = parseInt(总秒数 / 60 / 60 % 24)  //计算小时
+    // m = parseInt(总秒数 / 60 % 60)      //计算分数
+    // s = parseInt(总秒数 % 60)         //计算当前秒数
+    function getTime() {
+      const today = document.querySelector('.next')
+      const date = new Date()
+      today.innerHTML = `今天是${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
+      //当前时间戳
+      const now = +new Date()
+      //将来时间戳
+      const last = +new Date('2023-5-2 18:30:00')
+      //得到剩余时间戳   转换为  秒
+      const count = (last - now) / 1000
+      //计算天数
+      d = parseInt(count / 60 / 60 / 24)
+      //计算小时
+      h = parseInt(count / 60 / 60 % 24)
+      //计算分数
+      m = parseInt(count / 60 % 60)
+      //秒数
+      s = parseInt(count % 60)
+      const day = document.querySelector('#day').innerHTML = d
+      const hour = document.querySelector('#hour').innerHTML = h
+      const minutes = document.querySelector('#minutes').innerHTML = m
+      const scond = document.querySelector('#scond').innerHTML = s
+    }
+    getTime()
+    setInterval(getTime, 1000)
+  </script>
+</body>
+
+</html>

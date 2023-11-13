@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" href="./assets/news.css" />
+  <script src="./lib/jquery.js"></script>
+  <script src="./lib/template-web.js"></script>
+</head>
+
+<body>
+
+  <div id="news-list">
+
+  </div>
+  <!-- 定义模板 -->
+  <script type="text/html" id="news">
+    {{each data}}
+      <div class="news-item">
+            <img class="thumb" src="{{`https://ajax-base-api-t.itheima.net${$value.img}`}}" alt="" />
+            <div class="right-box">
+              <h1 class="title">{{$value.title}}</h1>
+              <div class="tags">
+                {{each $value.tags}}
+                <span>{{$value}}</span>
+                {{/each}}
+              </div>
+              <div class="footer">
+                <div>
+                  <span>{{$value.source}}</span>&nbsp;&nbsp;
+                  <span>{{$value.time | timeguolv}}</span>
+                </div>
+                <span>评论数：{{$value.cmtcount}}</span>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+  </script>
+  <script>
+    $(function () {
+      // 补0函数
+      function padZero(n) {
+        return n < 10 ? '0' + n : n
+      }
+      // 定义时间过滤器
+      template.defaults.imports.timeguolv = function (dtStr) {
+        const dt = new Date(dtStr)
+        const y = dt.getFullYear()
+        const m = padZero((dt.getMonth() + 1))
+        const d = padZero(dt.getDate())
+        const hh = padZero(dt.getHours())
+        const mm = padZero(dt.getMinutes())
+        const ss = padZero(dt.getSeconds())
+        return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+      }
+      // 获取新闻列表
+      function getNews() {
+        $.get('https://ajax-base-api-t.itheima.net/api/news', function (res) {
+          if (res.status !== 200) return alert('获取失败！')
+          for (let i = 0; i < res.data.length; i++) {
+            res.data[i].tags = res.data[i].tags.split(',')
+          }
+          const htmlStr = template('news', res)
+          $('#news-list').html(htmlStr)
+        })
+      }
+      getNews()
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传文件</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="./js/jquery.js"></script>
+</head>
+
+<body>
+    <input type="file" id="file1">
+    <button id="btnUpload">上传文件</button>
+    <!-- Bootstrap中的进度条 -->
+    <div class="progress" style="width: 500px;margin: 15px 10px;">
+        <div class="progress-bar progress-bar-striped active" id="percent">
+
+        </div>
+    </div>
+    <br>
+    <img src="" alt="" id="img" width="800">
+    <script>
+        // 1.获取上传按钮
+        const btn = document.querySelector('#btnUpload')
+        // 2.绑定监听事件
+        btn.addEventListener('click', function () {
+            // 3.获取用户选择的文件列表
+            const files = document.querySelector('#file1').files
+            if (files.length <= 0) {
+                return alert('请选择要上传的文件')
+            }
+            const fd = new FormData()
+            // 将选择的文件添加到FormData
+            fd.append('avatar', files[0])
+            const xhr = new XMLHttpRequest()
+
+            // 监听文件上传进度
+            xhr.upload.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    // 计算上传的进度
+                    const procentComplete = Math.ceil((e.loaded / e.total) * 100)
+                    //进度条  原生JS
+                    // const percent = document.querySelector('#percent')
+                    // percent.style.width = procentComplete + '%'
+                    // percent.innerText = procentComplete + '%'
+
+                    // jQuer
+                    $('#percent').removeClass().addClass('progress-bar progress-bar-striped active').attr('style', 'width:' + procentComplete + '%').html(procentComplete + '%')
+                }
+            }
+            // 上传完成后
+            xhr.upload.onload = function () {
+                $('#percent').removeClass().addClass('progress-bar progress-bar-success')
+            }
+
+
+            xhr.open('POST', 'https://ajax-base-api-t.itheima.net/api/upload/avatar')
+            xhr.send(fd)
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText)
+                    if (data.status === 200) {
+                        document.querySelector('#img').src = 'https://ajax-base-api-t.itheima.net' + data.url
+                    } else {
+                        alert('上传失败' + data.message)
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

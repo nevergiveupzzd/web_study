@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 300px;
+            margin: 100px auto;
+            background-color: skyblue;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <p><span class="day"></span>
+            <i>天</i>
+            <span class="hour"></span>
+            <i>:</i>
+            <span class="minutes"></span>
+            <i>:</i>
+            <span class="scond"></span>
+        </p>
+        <p>
+            <span class="tian"></span><i>天</i>
+        </p>
+        <p>
+            <span class="shi"></span><i>小时</i>
+        </p>
+        <p>
+            <span class="fen"></span><i>分钟</i>
+        </p>
+        <p>
+            <span class="miao"></span><i>秒</i>
+        </p>
+    </div>
+    <script>
+        function getTime() {
+            const start = +new Date('2023-2-26 07:00:00')
+            const now = +new Date()
+            const count = (now - start) / 1000
+            // 天数
+            d = parseInt(count / 60 / 60 / 24)
+            //计算小时
+            h = parseInt(count / 60 / 60 % 24)
+            //计算分数
+            m = parseInt(count / 60 % 60)
+            //秒数
+            s = parseInt(count % 60)
+            document.querySelector('.day').innerHTML = d
+            document.querySelector('.hour').innerHTML = h
+            document.querySelector('.minutes').innerHTML = m
+            document.querySelector('.scond').innerHTML = s
+            document.querySelector('.tian').innerHTML = Math.ceil(count / 60 / 60 / 24)
+            document.querySelector('.shi').innerHTML = Math.ceil(count / 60 / 60)
+            document.querySelector('.fen').innerHTML = Math.ceil(count / 60)
+            document.querySelector('.miao').innerHTML = Math.ceil(count)
+        }
+        getTime()
+        setInterval(getTime, 1000)
+    </script>
+</body>
+
+</html>

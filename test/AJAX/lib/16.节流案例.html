@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #angel {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="./images/angel.gif" alt="" id="angel">
+    <script>
+        // 不使用节流实现鼠标跟随
+        // $(function () {
+        //     // 1.获取图片
+        //     const angel = $('#angel')
+        //     // 2.绑定 mousemove事件
+        //     $(document).on('mousemove', function (e) {
+        //         // 3.设置图片位置
+        //         angel.css('top', e.pageY + 'px').css('left', e.pageX + 'px')
+        //     })
+        // })
+
+        // 使用节流
+        $(function () {
+            const angel = $('#angel')
+            // 1.定义节流阀
+            let timer = null
+            $(document).on('mousemove', function (e) {
+                // 3.判断节流阀
+                if (timer) return
+                // 2.开启延时器
+                timer = setTimeout(function () {
+                    angel.css('top', e.pageY + 'px').css('left', e.pageX + 'px')
+                    console.log(111);
+                    timer = null
+                }, 16)
+            })
+        })
+    </script>
+</body>
+
+</html>

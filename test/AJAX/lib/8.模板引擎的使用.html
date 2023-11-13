@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板引擎</title>
+    <!-- 1.引入 -->
+    <script src="./js/template-web.js"></script>
+    <script src="./js/jquery.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <!-- 3.定义模板 -->
+    <!-- 模板的HTML结构，必须定义到script中 -->
+    <script type="text/html" id="tpl">
+        <h1>{{name}}-----{{age}}</h1>
+    </script>
+    <script>
+        // 2.定义数据
+        const data = { name: 'zs', age: 20 }
+        // 4.调用template函数  template('模板的ID'，需要渲染的数据对象)
+        const htmlStr = template('tpl', data)
+        console.log(htmlStr);
+        // 5.渲染HTML结构
+        $('#container').html(htmlStr)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery.js"></script>
+</head>
+
+<body>
+    <div></div>
+    <!-- 1.定义模板结构 -->
+    <script type="text/html" id="moban">
+        <div>姓名：{{name}}</div>
+        <div>年龄：{{ age }}</div>
+        <div>性别：{{  gender}}</div>
+        <div>住址：{{address  }}</div>
+    </script>
+
+    <script>
+        // 2.定义模板引擎函数
+        function template(id, data) {
+            var str = document.querySelector(id).innerHTML
+            var pattern = /{{\s*([a-zA-Z]+)\s*}}/
+            var pattResult = null
+            while (pattResult = pattern.exec(str)) {
+                str = str.replace(pattResult[0], data[pattResult[1]])
+            }
+            return str
+        }
+
+        //  3.调用模板引擎
+        // 定义数据
+        var data = { name: '张三', age: 18, gender: '男', address: '三门峡' }
+        // 调用模板函数
+        var htmlStr = template('#moban', data)
+        // 渲染HTML结构
+        document.querySelector('div').innerHTML = htmlStr
+    </script>
+</body>
+
+</html>
