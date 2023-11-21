@@ -5,21 +5,51 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    // 存放轮播图数据
+    swiperList: [],
+    // 存放九宫格数据
+    gridList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.getSwiperList()
+    this.getGridList()
+  },
 
+  // 获取轮播图数据
+  getSwiperList() {
+      wx.request({
+        url: 'https://applet-base-api-t.itheima.net/slides',
+        method: 'GET',
+        success: (res) => {
+            this.setData({
+                swiperList: res.data
+            })
+        }
+      })
+  },
+
+  // 获取九宫格数据
+  getGridList() {
+      wx.request({
+        url: 'https://applet-base-api-t.itheima.net/categories',
+        method: 'GET',
+        success: (res) => {
+            this.setData({
+                gridList: res.data
+            })
+        }
+      })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+      
   },
 
   /**
