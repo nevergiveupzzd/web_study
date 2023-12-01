@@ -1,0 +1,8 @@
+<!--pages/home/home.wxml-->
+<text>pages/home/home.wxml</text>
+<view></view>
+<my-test1></my-test1>
+<view></view>
+<view></view>
+<van-button type="primary">vant按钮</van-button>
+<van-button type="danger">vant按钮</van-button>

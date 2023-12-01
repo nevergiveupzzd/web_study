@@ -8,6 +8,11 @@ console.log(text1Store.data1);
     <button @click="text1Store.data1.push(666)">添加</button>
     <div>{{ text1Store.data1 }}</div>
 </template>
+<script lang = ts>
+    function test(){
+
+    }
+</script>
 <style scoped>
 div{
  width: 100%;
